@@ -1,0 +1,5 @@
+1.修改数据库模型
+先修改appname/models　然后执行
+python manage.py makemigrations appname
+python manage.py migrate 
+
