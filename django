@@ -78,3 +78,46 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
 admin.site.register(Question, QuestionAdmin)
+
+
+
+
+
+
+5.在url文件中写name=XXX
+    　　格式为url(r'^post/(?P<name>正则)/$',views.视图函数,　name='名字')
+       url(r'^post/(?P<pk>[0-9]+)/$', views.detail, name='detail'),
+       url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.archives, name='archives'),
+
+在templates中调用url时
+ <a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }} 月</a>
+
+此处将date.year date.month 参数传递给url，访问archives/date.year/date.month
+
+
+
+
+６.get_absolute_url
+在models中定义该方法
+class Post(models.Model):
+
+        title = models.CharField(max_length=70)
+        ....
+        def __unicode__(self):
+                return self.title
+        def get_absolute_url(self):
+                return reverse('blog:detail', kwargs={'pk': self.pk})
+reverse方法用于重定向url，在这重定向到appname:name 即blog下的name=detail的url，并将参数pk传给url
+
+在templates中需要查看对象模型时
+<a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+
+
+
+
+
+
+
+
+
+
