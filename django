@@ -134,7 +134,22 @@ reverse方法用于逆向查找URLCONF ，根据提供的视图和参数的值�
 
 
 
+７.Django 允许我们在 models.Model 的子类里定义一个 Meta 的内部类，这个内部类通过指定一些属性来规定这个类该有的一些特性
 
+blog/models.py
 
+@python_2_unicode_compatible
+class Post(models.Model):
+    ...
+    created_time = models.DateTimeField()
+    ...
 
+    def __str__(self):
+        ...
+
+    def get_absolute_url(self):
+        ...
+
+    class Meta:
+        ordering = ['-created_time']
 
