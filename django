@@ -192,3 +192,53 @@ Comment 和Post 是通过 ForeignKey 关联的，回顾一下我们当初获取�
 u'sssss'
 
 可以去除字符串里面的标签
+
+
+
+
+
+
+
+
+
+10.给文章生成摘要
+(1)可以重写models中的save方法，格式如下
+class Post:
+        def save(self, *args, **kwargs):
+             do something......
+                super(Post, self).save(*args, **kwargs)
+                
+  
+  实例:
+  def save(self, *args, **kwargs):
+                if not self.excerpt:
+                        md = markdown.Markdown(extensions=[
+                                'markdown.extensions.extra',
+                                'markdown.extensions.codehilite',
+            ])
+                        self.excerpt = strip_tags(md.convert(self.body))[0:54]
+                
+                super(Post, self).save(*args, **kwargs)
+              
+(2) 使用 truncatechars 模板过滤器
+
+ <p>{{ post.body|truncatechars:54 }}摘要</p> 
+ 
+ 
+ 11.自定义ordering排序方法
+    在models文件中
+        class Post:
+            ........
+            modified_time = models.DateTimeField()   
+            class Meta:                                     ++++++
+                ordering=['-created_time']                  ++++++
+                
+     去除视图中的排序方法,只要使用此模型时,排序方法默认为倒序根据创建时间
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
