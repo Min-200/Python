@@ -1,0 +1,55 @@
+Python使用过程中遇到的问题
+
+１.继承父类时的属性问题
+class A():
+    def __init__(self):
+        self.namea="aaa"
+
+    def funca(self):
+        print "function a : %s"%self.namea
+
+class B(A):
+    def __init__(self):
+        self.nameb="bbb"
+    def funcb(self):
+        print "function b : %s"%self.nameb
+
+b=B()
+print b.namea
+
+error:
+  print b.namea
+AttributeError: B instance has no attribute 'namea'
+
+在继承父类后,如果重新构造,则会无法找到父类的属性
+解决方法:
+
+class A(object):                            ++++++++++
+    def __init__(self):
+        self.namea="aaa"
+
+    def funca(self):
+        print "function a : %s"%self.namea
+
+class B(A):
+    def __init__(self):
+        super(B,self).__init__()             ++++++++
+        self.nameb="bbb"
+
+    def funcb(self):
+        print "function b : %s"%self.nameb
+
+在两处加号的地方修改　
+super函数要求继承的类A继承自object类，这样才能使用super函数，因为这是python的“新式类”支持的特性。
+当前的类和对象可以作为super函数的参数使用，调用函数返回的对象的任何方法都是调用超类的方法，而不是当前类的方法。
+
+super函数会返回一个super对象，这个对象负责进行方法解析，解析过程其会自动查找所有的父类以及父类的父类。
+
+
+还有一种方法:
+  class B(A):
+    def __init__(self):
+        #这一行解决了问题
+        A.__init__(self)           ++++++++++++
+        self.nameb="bbb"
+ 
