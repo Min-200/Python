@@ -181,3 +181,14 @@ Comment 和Post 是通过 ForeignKey 关联的，回顾一下我们当初获取�
 那么获取和 post 关联的评论列表有一个简单方法，即调用它的 xxx_set 属性来获取一个类似于 objects 的模型管理器，
 然后调用其 all 方法来返回这个 post 关联的全部评论。 其中 xxx_set 中的 xxx 为关联模型的类名（小写）。
 例如 Post.objects.filter(category=cate) 也可以等价写为 cate.post_set.all()。
+
+
+9.from django.utils.html import strip_tags
+>>> from django.utils.html import strip_tags
+>>> a='</a>sssss</a>'
+>>> a
+'</a>sssss</a>'
+>>> strip_tags(a)
+u'sssss'
+
+可以去除字符串里面的标签
