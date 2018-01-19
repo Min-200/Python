@@ -282,3 +282,8 @@ class ArchivesView(ListView):
                                                                        )
 
  
+ 
+ 
+ 
+ 13.在其他的网页继承index.html时
+ 如果子页面要加载script和或者css文件,　最好用{% block %}块来继承
