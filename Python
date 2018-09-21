@@ -99,4 +99,20 @@ super函数会返回一个super对象，这个对象负责进行方法解析，�
      print '\n'.join(table.row_values(19)) 即可
 
 
+4.函数：startswith()
+
+作用：判断字符串是否以指定字符或子字符串开头
+
+语法：string.startswith(str, beg=0,end=len(string))
+       或string[beg:end].startswith(str)
+>>> s = 'hello good boy doiido'  
+>>> print s.startswith('h')  
+True  
+>>> print s.startswith('hel')  
+True  
+>>> print s.startswith('h',4)  
+False  
+>>> print s.startswith('go',6,8)  
+True  
+
 
