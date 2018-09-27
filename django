@@ -328,3 +328,15 @@ Projectlist = Projectlist.objects.values_list('name',flat=True)
 project_group = forms.ModelChoiceField(empty_label="项目代号",queryset=ProjectGroupList)
 
 ModelChoiceField这个是在数据库里查询数据，queryset只能查询主键的 flat=True 表示去掉元组的格式
+
+
+
+
+17.在form中实现动态加载下拉
+class ProfileForm(forms.Form):
+  
+    project_group = forms.ChoiceField(label="项目名称")
+    project_profile = forms.CharField(label="项目环境",max_length=20,required=True)
+    def __init__(self, *args, **kwargs):                  #重新构造函数，实现动态加载下拉表单数据
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['project_group'].choices=(tuple([(i, i) for i in ProjectGroup.objects.values_list('name',flat=True)] ))
