@@ -323,3 +323,8 @@ class Profileadd(forms.Form):
     new.save()
 
 
+16.   
+Projectlist = Projectlist.objects.values_list('name',flat=True)
+project_group = forms.ModelChoiceField(empty_label="项目代号",queryset=ProjectGroupList)
+
+ModelChoiceField这个是在数据库里查询数据，queryset只能查询主键的 flat=True 表示去掉元组的格式
