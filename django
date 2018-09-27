@@ -295,3 +295,31 @@ class ArchivesView(ListView):
                     <td>{{ profile.project_group.cd_en_name}}</td>
                            obj.外键.外键的表
 
+
+
+15.ProjectGroup             id为主键
+   Project_profile model的project_group 为外键连接上表的主键
+
+
+有时候需要在外键的主键为id，但是在页面上想要展示其他字段来选择
+
+在forms中 定义一个二元元组
+Projectlist = Projectlist.objects.values_list('name',flat=True) 取数据的列表
+
+class Profileadd(forms.Form):
+       project_group = forms.ChoiceField(choices=(tuple([(i, i) for i in ProjectGroupList] )))  将列表改为二元元组
+
+
+在views中需要对外键数据进行增删改查。需要转换一下
+    先将从页面上得到的数据
+    project_profile = form.cleaned_data['project_profile']              获取表单数据
+    group = ProjectGroup.objects.get(cd_en_name=project_group)          根据过去的数据提取出主键
+    group_id = group.id     
+    print (group_id)            
+
+    new = Project_profile.objects.create()
+    new.project_group_id = group_id                                     在外键字段增加数据
+    new.project_profile = project_profile
+    new.save()
+
+
