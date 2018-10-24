@@ -340,3 +340,29 @@ class ProfileForm(forms.Form):
     def __init__(self, *args, **kwargs):                  #重新构造函数，实现动态加载下拉表单数据
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields['project_group'].choices=(tuple([(i, i) for i in ProjectGroup.objects.values_list('name',flat=True)] ))
+        
+        
+18.表单提交时自定义验证并在页面上提示错误信息
+
+views:
+def ***(request):
+    if request.method == "POST":
+            ......
+        if form.is_valid():
+            ......
+            if project_profile in profile:     #自定义验证
+                    context = {}
+                    context['error_msg'] = "该项目环境已经存在"
+                    context['form'] = form
+                    return render(request, '.../.../***.html', context)
+            try:
+                    ......
+            expect:
+                    ......
+    else:
+        ......
+     
+
+templates:
+       <input type="submit" class="submit" value="Submit" />
+        <span style="color:red;">{{ error_msg }}</span>   显示错误信息的地方
