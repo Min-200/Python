@@ -366,3 +366,11 @@ def ***(request):
 templates:
        <input type="submit" class="submit" value="Submit" />
         <span style="color:red;">{{ error_msg }}</span>   显示错误信息的地方
+
+
+19.Textfield字段分行显示
+    
+在html中变量后面加这个 |linebreaksbr
+    如：
+    <td width="600">{{ asset.asset_des_dir|linebreaksbr }}</td>
+    <td width="1000">{{ asset.asset_cron|linebreaksbr}}</td>
