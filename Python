@@ -1,5 +1,38 @@
 Python使用过程中遇到的问题
 
+
+Python3安装：
+需要安装openssl-dev,openssl
+openssl的版本需要高于1.0.2
+
+1.https://www.python.org/downloads/release/python-356/ 官网地址下载源码包
+2.tar xf Python-3.5.6.tgz
+3.vim Python-3.5.6/Modules/Setup
+    找到下面几行 改成下面的样子
+------------------------------------------------
+# Socket module helper for socket(2)
+_socket socketmodule.c
+
+# Socket module helper for SSL support; you must comment out the other
+# socket line above, and possibly edit the SSL variable:
+SSL=/usr/local/openssl
+_ssl _ssl.c \
+        -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+        -L$(SSL)/lib -lssl -lcrypto
+
+-----------------------------------------------
+4. ./configure --prefix=/usr/local/python3
+   make
+   make install 
+
+
+
+
+
+
+
+
+
 １.继承父类时的属性问题
 class A():
     def __init__(self):
