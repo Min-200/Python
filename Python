@@ -149,3 +149,9 @@ False
 True  
 
 
+
+5.在os中传递变量
+url="....."
+job_basename="....."
+os.system("ssh 192.168.104.187 cat {}/{}.txt".format(url_file,job_basename))
+
