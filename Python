@@ -155,3 +155,10 @@ url="....."
 job_basename="....."
 os.system("ssh 192.168.104.187 cat {}/{}.txt".format(url_file,job_basename))
 
+
+6.执行shell命令并获取输出
+    import os
+
+    process = os.popen('ls -l') # return file
+    output = process.read()
+     process.close()
